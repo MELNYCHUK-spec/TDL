@@ -1,0 +1,24 @@
+:root {
+    --color-mint: #00f1cb;
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+
+    --color-dark-1: #0F172A;
+    --color-blue-1: #1D4ED8;
+
+
+    --color-purple: #c300ff;
+    --color-yellow-2: #FFD93D;
+    --color-orange-1: #FF8E3C;
+    --color-pink-1: #FF3D81;
+
+    --border: 1px solid var(--color-dark-1);
+    --border-radius: 8px;
+
+    --box-shadow: 0 4px 4px -4px rgba(12, 12, 13, 0.05), 0 16px 32px -4px rgba(12, 12, 13, 0.1);
+
+    --input-height: 40px;
+
+    --transition-duration: 0.4s;
+}

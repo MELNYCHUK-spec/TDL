@@ -1,0 +1,21 @@
+{
+  "name": "To-do",
+  "version": "1.0.0",
+  "private": true,
+  "description": "To-do-list app",
+  "repository": {
+    "type": "git",
+    "url": "https://tdl-gray.vercel.app/"
+  },
+  "license": "MIT",
+  "author": "MO",
+  "type": "module",
+  "main": "src/js/todo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

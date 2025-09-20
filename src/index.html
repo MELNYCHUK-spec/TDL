@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>To Do List</title>
+    <link rel="icon" type="image/x-icon" href="./icons/favicon-32x32.png" />
+    <link rel="stylesheet" href="./styles/index.css" />
+  </head>
+  <body class="gradient-background">
+    <div class="todo" data-js-todo>
+      <h1 class="todo__title" aria-label="To Do List">
+        <svg
+          viewBox="0 0 200 30"
+          width="150"
+          height="30"
+          role="img"
+          aria-hidden="true"
+        >
+          <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+            To Do List
+          </text>
+        </svg>
+      </h1>
+
+      <form class="todo__form" data-js-todo-new-task-form>
+        <div class="todo__field field">
+          <label for="new-task" class="field__label"> New Task </label>
+          <input
+            type="text"
+            id="new-task"
+            class="field__input"
+            placeholder=" "
+            autocomplete="off"
+            data-js-todo-new-task-input
+          />
+        </div>
+        <button class="button" type="submit">Add</button>
+      </form>
+      <form class="todo__form" data-js-todo-search-task-form>
+        <div class="todo__field field">
+          <label for="search-task" class="field__label"> Search Task </label>
+          <input
+            type="search"
+            id="search-task"
+            class="field__input"
+            placeholder=" "
+            autocomplete="off"
+            data-js-todo-search-task-input
+          />
+        </div>
+      </form>
+      <div class="todo__info">
+        <div class="todo__total-tasks">
+          Total Tasks :<span data-js-todo-total-tasks>0</span>
+        </div>
+        <button
+          class="todo__delete-all-button"
+          type="button"
+          data-js-todo-delete-all-button
+        >
+          Delete All
+        </button>
+      </div>
+      <ul class="todo__list" data-js-todo-list></ul>
+      <div
+        class="todo__empty-message blinking"
+        data-js-todo-empty-message
+      ></div>
+    </div>
+    <script src="js/index.js" type="module"></script>
+  </body>
+</html>

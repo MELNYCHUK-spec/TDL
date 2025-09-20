@@ -1,0 +1,100 @@
+@keyframes blink-animation {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.blinking {
+  animation: blink-animation 1.5s infinite;
+}
+
+
+@keyframes rotationWithScaling {
+  0% {
+    transform: translate(50vw, -50vh) scale(0) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(360deg);
+  }
+}
+
+.introMove {
+  animation: rotationWithScaling 1.4s ease-in-out forwards;
+  will-change: transform;
+}
+
+
+@keyframes wobble {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.wobble {
+  animation: wobble 2s cubic-bezier(0.37, 0, 0.63, 1) normal none;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-background {
+    background: linear-gradient(300deg,#a8ed2d,#11f1cf,#b911f1);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+@keyframes animatedText {
+    0%   {
+        fill: rgba(191,204,40,0); stroke: rgb(234, 234, 234);
+        stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+    }
+    70%  {fill: rgba(0, 10, 213, 0); stroke: rgb(241, 241, 241); }
+    80%  {fill: rgba(8, 122, 158, 0); stroke: rgb(237, 237, 237); stroke-width: 3; }
+    100% {
+        fill: rgb(122, 0, 191); stroke: rgba(0,0,0,0);
+        stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
+    }
+}
+
+svg text{
+    animation: animatedText 3.6s ease-in-out;
+    stroke-width: 2;
+    stroke: #8c00ff;
+}
