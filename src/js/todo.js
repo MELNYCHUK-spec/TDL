@@ -46,27 +46,23 @@ export class Todo {
     this.emptyMessageElement = this.rootElement.querySelector(
       this.selectors.emptyMessage
     )
+
     this.state = {
       items: this.getItemsFromLocalStorage(),
-      filteredItems: null,
-      searchQuery: '',
     }
+
     this.render()
     this.bindEvents()
   }
 
   getItemsFromLocalStorage() {
     const rawData = localStorage.getItem(this.localStorageKey)
-
-    if (!rawData) {
-      return []
-    }
-
+    if (!rawData) return []
     try {
       const parsedData = JSON.parse(rawData)
       return Array.isArray(parsedData) ? parsedData : []
     } catch {
-      console.error('Todo items parse error')
+      console.error('parse error')
       return []
     }
   }
@@ -83,9 +79,7 @@ export class Todo {
       this.state.items.length > 0
     )
 
-    const items = this.state.filteredItems ?? this.state.items
-
-    this.listElement.innerHTML = items
+    this.listElement.innerHTML = this.state.items
       .map(
         ({ id, title, isChecked }) => `
       <li class="todo__item todo-item" data-js-todo-item>
@@ -109,7 +103,7 @@ export class Todo {
           aria-label="Delete"
           title="Delete"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 20 20">
             <path d="M15 5L5 15M5 5L15 15" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
@@ -118,14 +112,8 @@ export class Todo {
       )
       .join('')
 
-    const isEmptyFilteredItems = this.state.filteredItems?.length === 0
-    const isEmptyItems = this.state.items.length === 0
-
-    this.emptyMessageElement.textContent = isEmptyFilteredItems
-      ? 'Tasks not found'
-      : isEmptyItems
-        ? 'There are no tasks yet'
-        : ''
+    this.emptyMessageElement.textContent =
+      this.state.items.length === 0 ? 'There are no tasks yet' : ''
   }
 
   addItem(title) {
@@ -145,46 +133,36 @@ export class Todo {
   }
 
   toggleCheckedState(id) {
-    this.state.items = this.state.items.map((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          isChecked: !item.isChecked,
-        }
-      }
-
-      return item
-    })
+    this.state.items = this.state.items.map((item) =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
+    )
     this.saveItemsToLocalStorage()
     this.render()
   }
 
-  filter() {
-    const queryFormatted = this.state.searchQuery.toLowerCase()
+  onSearchTaskInputChange = ({ target }) => {
+    const query = target.value.trim().toLowerCase()
 
-    this.state.filteredItems = this.state.items.filter(({ title }) => {
-      const titleFormatted = title.toLowerCase()
+    const items = this.listElement.querySelectorAll(this.selectors.item)
+    let visibleCount = 0
 
-      return titleFormatted.includes(queryFormatted)
+    items.forEach((li) => {
+      const label = li.querySelector(this.selectors.itemLabel)
+      const text = label.textContent.toLowerCase()
+      const match = text.includes(query)
+      li.style.display = match ? '' : 'none'
+      if (match) visibleCount++
     })
 
-    this.render()
-  }
-
-  resetFilter() {
-    this.state.filteredItems = null
-    this.state.searchQuery = ''
-    this.render()
+    this.emptyMessageElement.textContent =
+      query && visibleCount === 0 ? 'Tasks not found' : ''
   }
 
   onNewTaskFormSubmit = (event) => {
     event.preventDefault()
-
     const newTodoItemTitle = this.newTaskInputElement.value
-
     if (newTodoItemTitle.trim().length > 0) {
       this.addItem(newTodoItemTitle)
-      this.resetFilter()
       this.newTaskInputElement.value = ''
       this.newTaskInputElement.focus()
     }
@@ -194,20 +172,8 @@ export class Todo {
     event.preventDefault()
   }
 
-  onSearchTaskInputChange = ({ target }) => {
-    const value = target.value.trim()
-
-    if (value.length > 0) {
-      this.state.searchQuery = value
-      this.filter()
-    } else {
-      this.resetFilter()
-    }
-  }
-
   onDeleteAllButtonClick = () => {
-    const isConfirmed = confirm('Do u want to delete all tasks,are you sure?')
-
+    const isConfirmed = confirm('Do u want to delete all tasks, are you sure?')
     if (isConfirmed) {
       this.state.items = []
       this.saveItemsToLocalStorage()
@@ -221,9 +187,7 @@ export class Todo {
       const itemCheckboxElement = itemElement.querySelector(
         this.selectors.itemCheckbox
       )
-
       itemElement.classList.add(this.stateClasses.isDisappearing)
-
       setTimeout(() => {
         this.deleteItem(itemCheckboxElement.id)
       }, 400)
