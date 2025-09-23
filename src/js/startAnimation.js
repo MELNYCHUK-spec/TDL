@@ -3,7 +3,7 @@ export const startAnimation = () => {
   root.classList.add('introMove')
   root.addEventListener('animationend', onAnimationEnd)
 
-  function onAnimationEnd(event) {
+  function onAnimationEnd() {
     root.classList.remove('introMove')
     root.classList.add('wobble')
     root.removeEventListener('animationend', onAnimationEnd)
