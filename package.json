@@ -11,9 +11,6 @@
   "author": "MO",
   "type": "module",
   "main": "src/js/todo.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "^3.6.2"
