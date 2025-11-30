@@ -11,8 +11,7 @@
   "author": "MO",
   "type": "module",
   "main": "src/js/todo.js",
-  },
   "devDependencies": {
     "prettier": "^3.6.2"
   }
-
+}
