@@ -80,14 +80,8 @@ button {
 }
 
 html {
-
     height: 100%;
-
     scrollbar-gutter: stable;
-}
-
-
-html {
     scroll-behavior: smooth;
 }
 
