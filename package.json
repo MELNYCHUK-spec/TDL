@@ -11,7 +11,14 @@
   "author": "MO",
   "type": "module",
   "main": "src/js/todo.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
   "devDependencies": {
-    "prettier": "^3.6.2"
+    "@vitest/coverage-v8": "^5.0.5",
+    "jsdom": "^30.1.3",
+    "prettier": "^3.6.2",
+    "vitest": "^5.0.5"
   }
 }
