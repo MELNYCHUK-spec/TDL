@@ -84,9 +84,15 @@ export class Todo {
       this.state.items.length > 0
     )
 
-    this.listElement.innerHTML = this.state.items
-      .map(
-        ({ id, title, isChecked }) => `
+    this.renderItems(this.state.items)
+
+    this.emptyMessageElement.textContent =
+      this.state.items.length === 0 ? 'There are no tasks yet' : ''
+  }
+
+  renderItems(items) {
+    this.listElement.innerHTML = items
+      .map(({ id, title, isChecked }) => `
       <li class="todo__item todo-item" data-js-todo-item>
         <input
           class="todo-item__checkbox"
@@ -113,12 +119,7 @@ export class Todo {
           </svg>
         </button>
       </li>
-    `
-      )
-      .join('')
-
-    this.emptyMessageElement.textContent =
-      this.state.items.length === 0 ? 'There are no tasks yet' : ''
+    `).join('')
   }
 
   renderSearchResults(query) {
@@ -126,38 +127,7 @@ export class Todo {
       item.title.toLowerCase().includes(query)
     )
 
-    this.listElement.innerHTML = matchingItems
-      .map(
-        ({ id, title, isChecked }) => `
-      <li class="todo__item todo-item" data-js-todo-item>
-        <input
-          class="todo-item__checkbox"
-          id="${id}"
-          type="checkbox"
-          ${isChecked ? 'checked' : ''}
-          data-js-todo-item-checkbox
-        />
-        <label
-          class="todo-item__label"
-          for="${id}"
-          data-js-todo-item-label
-        >
-          ${title}
-        </label>
-        <button
-          class="todo-item__delete-button"
-          data-js-todo-item-delete-button
-          aria-label="Delete"
-          title="Delete"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20">
-            <path d="M15 5L5 15M5 5L15 15" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </li>
-    `
-      )
-      .join('')
+    this.renderItems(matchingItems)
   }
 
   addItem(title) {
